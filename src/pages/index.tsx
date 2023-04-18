@@ -1,3 +1,8 @@
+import { Details } from "@/lib/details";
+import { parse as parseYaml } from "yaml";
+import { remark } from "remark";
+import html from "remark-html";
+
 interface LanguageStats {
   name: string;
   color: string;
@@ -8,6 +13,7 @@ interface RepositoryData {
   nameWithOwner: string;
   name: string;
   languages: LanguageStats[];
+  details: Details;
 }
 
 interface HomeProps {
@@ -68,6 +74,8 @@ async function getShowcaseRepositories(cursor?: string): Promise<
   {
     name: string;
     nameWithOwner: string;
+    description: string;
+    defaultBranch: string;
     languages: { name: string; color: string }[];
   }[]
 > {
@@ -91,6 +99,10 @@ query {
       nodes {
         name,
         nameWithOwner,
+        description,
+        defaultBranchRef {
+          name
+        },
         languages(first: 100) {
           nodes {
             id,
@@ -122,6 +134,10 @@ query {
                 nodes: {
                   name: string;
                   nameWithOwner: string;
+                  description: string;
+                  defaultBranchRef: {
+                    name: string;
+                  };
                   languages: {
                     nodes: {
                       id: string;
@@ -150,6 +166,8 @@ query {
     .map((x) => ({
       name: x.name,
       nameWithOwner: x.nameWithOwner,
+      description: x.description,
+      defaultBranch: x.defaultBranchRef.name,
       languages: x.languages.nodes,
     }));
 
@@ -165,10 +183,39 @@ query {
   return repositories;
 }
 
-export async function getStaticProps() {
-  const rawRepositories = await getShowcaseRepositories();
+async function extractDetails(
+  repo: string,
+  ref: string
+): Promise<Details | undefined> {
+  try {
+    const detailsText = await fetch(
+      `https://raw.githubusercontent.com/${repo}/${ref}/.showcase.yml`
+    ).then((res) => {
+      if (res.status !== 200) return undefined;
+      return res.text();
+    });
+    if (!detailsText) return undefined;
 
+    const details = parseYaml(detailsText) as Details;
+
+    return details;
+  } catch (ex) {
+    return undefined;
+  }
+}
+
+const renderer = remark().use(html);
+
+async function renderDetailsDescription(details: Details): Promise<Details> {
+  const result = await renderer.process(details.description);
+  details.description = result.toString();
+  return details;
+}
+
+export async function getStaticProps() {
   const repositories: RepositoryData[] = [];
+
+  const rawRepositories = await getShowcaseRepositories();
 
   for (const rawRepo of rawRepositories) {
     const languageStats = await getLanguagesUsage(
@@ -176,9 +223,24 @@ export async function getStaticProps() {
       rawRepo.languages
     );
 
+    let details = await extractDetails(
+      rawRepo.nameWithOwner,
+      rawRepo.defaultBranch
+    );
+
+    if (!details) {
+      details = {
+        size: "small",
+        description: rawRepo.description,
+      };
+    }
+
+    details = await renderDetailsDescription(details);
+
     repositories.push({
       name: rawRepo.name,
       nameWithOwner: rawRepo.nameWithOwner,
+      details,
       languages: languageStats,
     });
   }
