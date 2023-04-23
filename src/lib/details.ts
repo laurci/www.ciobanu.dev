@@ -1,4 +1,4 @@
-export type Size = "big" | "small";
+export type Size = "big" | "medium" | "small";
 
 export interface Details {
   name?: string;

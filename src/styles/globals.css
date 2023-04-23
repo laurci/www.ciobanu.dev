@@ -6,4 +6,8 @@
   html {
     @apply font-sans;
   }
+
+  body {
+    background: #F7F7F7;
+  }
 }

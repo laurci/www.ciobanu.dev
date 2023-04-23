@@ -2,6 +2,16 @@ import { Details } from "@/lib/details";
 import { parse as parseYaml } from "yaml";
 import { remark } from "remark";
 import html from "remark-html";
+import { Button } from "@/components/button";
+import { Cube } from "@/components/cube";
+import curlyArrow from "../assets/arrow-curly.svg";
+import skills from "../assets/skills.svg";
+import { RepoLanguagesBar } from "@/components/repo/repo-languages";
+import { CubeRepo, Repo } from "@/components/repo/repo";
+import bgFrame from "../assets/bg-frame.svg";
+import footerScratch from "../assets/footer-scratch.svg";
+import coderImg from "../assets/coder.svg";
+import redMarker from "../assets/red-marker.svg";
 
 interface LanguageStats {
   name: string;
@@ -21,9 +31,148 @@ interface HomeProps {
 }
 
 export default function Home(props: HomeProps) {
+  console.log(props.repositories);
   return (
     <>
-      <pre>{JSON.stringify(props, null, 2)}</pre>
+      <section className="flex flex-col">
+        <div className="flex flex-col max-w-7xl mx-auto">
+          <h1 className="text-center font-semibold text-7xl mt-40 text-blue-dark">
+            Hello there! I'm Laur.
+          </h1>
+          <p className="text-center font-medium text-xl mt-6 text-dark">
+            I build some scalable server-side applications and here is my code
+            playground.
+            <br /> Check out some of my work or get in touch.
+          </p>
+
+          <div className="flex flex-row ml-auto mr-auto mt-10">
+            <Button
+              className="bg-turquoise text-teal border-teal"
+              shadowClassName="bg-teal"
+            >
+              <a className="text-white" href="">
+                See my projects
+              </a>
+            </Button>
+
+            <Button
+              className="bg-lighter border-turquoise text-turquoise ml-10"
+              shadowClassName="bg-turquoise"
+            >
+              Contact me
+            </Button>
+          </div>
+
+          <img
+            className="mx-auto mt-6"
+            src={coderImg.src}
+            width={coderImg.width}
+            height={coderImg.height}
+            alt=""
+          />
+
+          <div className="mt-20 mx-20">
+            <Cube>
+              <div className="flex flex-row p-12 justify-between">
+                <div>
+                  <p className="text-xl text-white font-bold">
+                    CODE CHRONICLES
+                  </p>
+                  <p className="text-white text-sm mt-4">
+                    Looking for a fresh perspective on the tech industry? Check
+                    out my blog, where I share insights, tips, and tricks for
+                    developers of all levels.
+                  </p>
+                </div>
+                <img
+                  className="mx-10 my-auto"
+                  src={curlyArrow.src}
+                  width={curlyArrow.width}
+                  height={curlyArrow.height}
+                  alt=""
+                />
+                <Button
+                  className="bg-purple text-white my-auto"
+                  shadowClassName="bg-white"
+                >
+                  <a href="">Read more</a>
+                </Button>
+              </div>
+            </Cube>
+          </div>
+
+          <img
+            className="select-none"
+            src={skills.src}
+            width={skills.width}
+            height={skills.height}
+            alt="My skills"
+          />
+
+          <div className="mx-auto relative">
+            <img
+              className="absolute -top-3 -right-10 w-full px-8 z-0"
+              src={redMarker.src}
+              width={redMarker.width}
+              height={redMarker.height}
+              alt=""
+            />
+            <p className="text-blue-dark text-5xl mb-6 relative">My projects</p>
+          </div>
+
+          <p className="text-center text-dark text-lg max-w-2xl mx-auto mb-16">
+            Buckle up and get ready to take a ride through the coding projects
+            that I poured my heart and soul into...and maybe some coffee too.
+          </p>
+
+          <div className="grid mx-10 mb-20 grid-cols-3 gap-x-10 gap-y-16">
+            {props.repositories.map((repo, index) =>
+              repo.details.size === "small" ? (
+                <Repo key={index} repo={repo} />
+              ) : (
+                <CubeRepo key={index} repo={repo} />
+              )
+            )}
+          </div>
+
+          <div className="flex flex-col mb-40">
+            <div className="relative mx-auto px-10">
+              <p className="text-center text-4xl font-normal text-blue-dark">
+                Let's Talk.
+              </p>
+              <img
+                className="absolute m-auto top-0 bottom-0 left-0 right-0"
+                src={footerScratch.src}
+                alt=""
+              />
+            </div>
+
+            <p className="text-center text-4xl font-bold text-blue-dark mt-3">
+              LETS'WRITE SOME CODE.
+            </p>
+
+            <p className="text-center text-lg text-dark mt-4">
+              Get in touch with me on:
+            </p>
+
+            <div className="flex flex-row justify-center mt-6">
+              <Button className="border-yellow text-yellow bg-lighter">
+                <a className="text-blue-dark" href="">
+                  LinkedIn
+                </a>
+              </Button>
+
+              <p className="mx-6 my-auto text-dark text-lg">or</p>
+
+              <Button className="border-orange text-orange bg-lighter">
+                <a className="text-blue-dark" href="">
+                  Email
+                </a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
@@ -38,7 +187,15 @@ async function getLanguagesUsage(
 ): Promise<LanguageStats[]> {
   const stats: LanguageStats[] = [];
   let totalUsage = 0;
-  const response = await fetch(`https://api.github.com/repos/${repo}/languages`)
+  const response = await fetch(
+    `https://api.github.com/repos/${repo}/languages`,
+    {
+      headers: {
+        Authorization: "bearer " + process.env.GITHUB_TOKEN,
+        "Content-Type": "application/json",
+      },
+    }
+  )
     .then((res) => res.json())
     .then((res) => res as Record<string, number>);
   const totalLines = Object.values(response).reduce((a, b) => a + b, 0);
@@ -64,7 +221,7 @@ async function getLanguagesUsage(
     stats.push({
       name: "Other",
       usage: roundToDigits(100 - totalUsage),
-      color: "#ededed",
+      color: "#FF5A44",
     });
   }
   return stats;
@@ -89,8 +246,9 @@ async function getShowcaseRepositories(cursor?: string): Promise<
       query: `
 query { 
   viewer { 
-    repositories(first: 100, privacy: PUBLIC${cursor ? ', after: "' + cursor + '"' : ""
-        }) {
+    repositories(first: 100, privacy: PUBLIC${
+      cursor ? ', after: "' + cursor + '"' : ""
+    }) {
       pageInfo {
         hasNextPage,
         endCursor
@@ -180,7 +338,7 @@ query {
     ];
   }
 
-  return repositories;
+  return [...repositories, ...repositories, ...repositories, ...repositories];
 }
 
 async function extractDetails(

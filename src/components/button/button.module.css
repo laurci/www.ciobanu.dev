@@ -1,0 +1,11 @@
+.root {
+  width: 220px;
+  min-width: 220px;
+  height: 80px;
+  box-shadow: 4px 4px 0px;
+}
+
+.root a, .root p, .root span {
+  width: 100%;
+  line-height: 76px;
+}

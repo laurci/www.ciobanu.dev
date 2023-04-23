@@ -18,18 +18,12 @@ export function Button(props: Props) {
       <div
         {...rest}
         className={clsx(
-          "cursor-pointer text-xl border-2 rounded-xl font-bold relative select-none",
+          "cursor-pointer text-center text-xl border-2 rounded-xl font-bold select-none",
           classes.root,
           className
         )}
       >
         {wrappedChildren}
-        <div
-          className={clsx(
-            "absolute w-full h-full top-2 left-2 rounded-xl -z-10",
-            shadowClassName
-          )}
-        />
       </div>
     </>
   );

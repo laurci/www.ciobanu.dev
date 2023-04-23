@@ -1,0 +1,66 @@
+.root {
+    position: relative;
+    box-sizing: border-box;
+    margin-bottom: 14px;
+}
+
+.front {
+    width: calc(100% - 40px);
+    border-radius: 6px 2px 2px 6px;
+    @apply bg-purple border-2 border-blue-dark;
+}
+
+.bottom {
+    position: absolute;
+    bottom: -14px;
+    left: 22px;
+    height: 15px;
+    width: calc(100% - 43px);
+    transform: skew(70deg, 0);
+    border-radius: 2px;
+    z-index: -2;
+    @apply bg-yellow border-l-4 border-b-2 border-blue-dark;
+}
+
+.side {
+    position: absolute;
+    right: 2px;
+    top: 7px;
+    height: 100%;
+    width: 40px;
+    transform: skew(0, 20deg);
+    z-index: -1;
+    border-radius: 2px;
+    @apply bg-orange border-r-2 border-y-2 border-blue-dark;
+}
+
+.frontLeft {
+    width: calc(100% - 40px);
+    margin-left: 40px;
+    border-radius: 2px 6px 6px 2px;
+    @apply bg-light-grey border-2 border-dark;
+}
+
+.bottomLeft {
+    position: absolute;
+    bottom: -14px;
+    right: 22px;
+    height: 15px;
+    width: calc(100% - 43px);
+    transform: skew(-70deg, 0);
+    border-radius: 2px;
+    z-index: -2;
+    @apply bg-orange border-r-4 border-b-2 border-dark;
+}
+
+.sideLeft {
+    position: absolute;
+    left: 2px;
+    top: 7px;
+    height: 100%;
+    width: 40px;
+    transform: skew(0, -20deg);
+    z-index: -1;
+    border-radius: 2px;
+    @apply bg-yellow border-l-2 border-y-2 border-dark;
+}
