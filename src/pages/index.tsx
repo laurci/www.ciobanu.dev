@@ -36,10 +36,10 @@ export default function Home(props: HomeProps) {
     <>
       <section className="flex flex-col">
         <div className="flex flex-col max-w-7xl mx-auto">
-          <h1 className="text-center font-semibold text-7xl mt-40 text-blue-dark">
+          <h1 className="text-center font-medium text-4xl lg:text-7xl mt-20 text-blue-dark">
             Hello there! I'm Laur.
           </h1>
-          <p className="text-center font-medium text-xl mt-6 text-dark">
+          <p className="text-center text-xl mt-6 text-dark">
             I build some scalable server-side applications and here is my code
             playground.
             <br /> Check out some of my work or get in touch.
@@ -125,7 +125,7 @@ export default function Home(props: HomeProps) {
             that I poured my heart and soul into...and maybe some coffee too.
           </p>
 
-          <div className="grid mx-10 mb-20 grid-cols-3 gap-x-10 gap-y-16">
+          <div className="grid mx-10 mb-20 grid-cols-1 xl:grid-cols-3 xl:gap-x-10 gap-y-6 xl:gap-y-16">
             {props.repositories.map((repo, index) =>
               repo.details.size === "small" ? (
                 <Repo key={index} repo={repo} />
@@ -137,17 +137,19 @@ export default function Home(props: HomeProps) {
 
           <div className="flex flex-col mb-40">
             <div className="relative mx-auto px-10">
-              <p className="text-center text-4xl font-normal text-blue-dark">
+              <p className="text-center text-4xl text-blue-dark">
                 Let's Talk.
               </p>
               <img
                 className="absolute m-auto top-0 bottom-0 left-0 right-0"
                 src={footerScratch.src}
+                width={footerScratch.width}
+                height={footerScratch.height}
                 alt=""
               />
             </div>
 
-            <p className="text-center text-4xl font-bold text-blue-dark mt-3">
+            <p className="text-center text-4xl font-medium text-blue-dark mt-3">
               LETS'WRITE SOME CODE.
             </p>
 
@@ -155,9 +157,9 @@ export default function Home(props: HomeProps) {
               Get in touch with me on:
             </p>
 
-            <div className="flex flex-row justify-center mt-6">
+            <div className="flex flex-row justify-center mt-6 ">
               <Button className="border-yellow text-yellow bg-lighter">
-                <a className="text-blue-dark" href="">
+                <a className="text-blue-dark font-normal" href="">
                   LinkedIn
                 </a>
               </Button>
@@ -165,7 +167,7 @@ export default function Home(props: HomeProps) {
               <p className="mx-6 my-auto text-dark text-lg">or</p>
 
               <Button className="border-orange text-orange bg-lighter">
-                <a className="text-blue-dark" href="">
+                <a className="text-blue-dark font-normal" href="">
                   Email
                 </a>
               </Button>
