@@ -18,6 +18,9 @@ module.exports = {
         "light-grey": "#F0F0F0",
         lighter: "F7F7F7",
       },
+      "screens": {
+        "xs": "576px",
+      }
     },
     fontFamily: {
       sans: ["var(--font-manrope)", ...fontFamily.sans],

@@ -36,16 +36,16 @@ export default function Home(props: HomeProps) {
     <>
       <section className="flex flex-col">
         <div className="flex flex-col max-w-7xl mx-auto">
-          <h1 className="text-center font-medium text-4xl lg:text-7xl mt-20 text-blue-dark">
+          <h1 className="text-center font-medium text-4xl md:text-5xl lg:text-7xl mt-20 text-blue-dark">
             Hello there! I'm Laur.
           </h1>
-          <p className="text-center text-xl mt-6 text-dark">
+          <p className="text-center text-base lg:text-xl mt-6 text-dark">
             I build some scalable server-side applications and here is my code
             playground.
             <br /> Check out some of my work or get in touch.
           </p>
 
-          <div className="flex flex-row ml-auto mr-auto mt-10">
+          <div className="flex flex-col md:flex-row ml-auto mr-auto mt-10 gap-8 lg:gap-10">
             <Button
               className="bg-turquoise text-teal border-teal"
               shadowClassName="bg-teal"
@@ -56,7 +56,7 @@ export default function Home(props: HomeProps) {
             </Button>
 
             <Button
-              className="bg-lighter border-turquoise text-turquoise ml-10"
+              className="bg-lighter border-turquoise text-turquoise"
               shadowClassName="bg-turquoise"
             >
               Contact me
@@ -73,29 +73,30 @@ export default function Home(props: HomeProps) {
 
           <div className="mt-20 mx-20">
             <Cube>
-              <div className="flex flex-row p-12 justify-between">
+              <div className="flex flex-col lg:flex-row p-4 lg:p-12 justify-between relative">
                 <div>
                   <p className="text-xl text-white font-bold">
                     CODE CHRONICLES
                   </p>
-                  <p className="text-white text-sm mt-4">
+                  <p className="text-white text-sm mt-4 mr-4">
                     Looking for a fresh perspective on the tech industry? Check
                     out my blog, where I share insights, tips, and tricks for
                     developers of all levels.
                   </p>
                 </div>
                 <img
-                  className="mx-10 my-auto"
+                  className="absolute lg:static lg:mx-10 lg:rotate-0 lg:scale-100 rotate-[109deg] xs:rotate-[145deg] scale-x-75 -scale-y-75  origin-bottom-right bottom-6 xs:bottom-4 right-12 xs:right-32"
                   src={curlyArrow.src}
                   width={curlyArrow.width}
                   height={curlyArrow.height}
                   alt=""
                 />
                 <Button
-                  className="bg-purple text-white my-auto"
+                  className="bg-purple text-white mt-16 md:mt-12 lg:my-auto"
                   shadowClassName="bg-white"
+                  style={{width: 180, minWidth: 180}}
                 >
-                  <a href="">Read more</a>
+                  <a className="font-normal" href="">Read more</a>
                 </Button>
               </div>
             </Cube>
@@ -137,9 +138,7 @@ export default function Home(props: HomeProps) {
 
           <div className="flex flex-col mb-40">
             <div className="relative mx-auto px-10">
-              <p className="text-center text-4xl text-blue-dark">
-                Let's Talk.
-              </p>
+              <p className="text-center text-4xl text-blue-dark">Let's Talk.</p>
               <img
                 className="absolute m-auto top-0 bottom-0 left-0 right-0"
                 src={footerScratch.src}

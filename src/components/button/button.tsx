@@ -18,7 +18,7 @@ export function Button(props: Props) {
       <div
         {...rest}
         className={clsx(
-          "cursor-pointer text-center text-xl border-2 rounded-xl font-bold select-none",
+          "cursor-pointer text-center text-base lg:text-xl border-2 rounded-xl select-none",
           classes.root,
           className
         )}
