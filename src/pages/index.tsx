@@ -6,12 +6,15 @@ import { Button } from "@/components/button";
 import { Cube } from "@/components/cube";
 import curlyArrow from "../assets/arrow-curly.svg";
 import skills from "../assets/skills.svg";
-import { RepoLanguagesBar } from "@/components/repo/repo-languages";
 import { CubeRepo, Repo } from "@/components/repo/repo";
-import bgFrame from "../assets/bg-frame.svg";
 import footerScratch from "../assets/footer-scratch.svg";
 import coderImg from "../assets/coder.svg";
 import redMarker from "../assets/red-marker.svg";
+import blueMarker from "../assets/blue-marker.svg";
+import coderMobileImg from "../assets/coder-mobile.svg";
+import skillsMobileImg from "../assets/skills-mobile.svg";
+import experienceMobileImg from "../assets/experience-mobile.svg";
+import markerWithArrowImg from "../assets/marker-with-arrow.svg";
 
 interface LanguageStats {
   name: string;
@@ -63,15 +66,29 @@ export default function Home(props: HomeProps) {
             </Button>
           </div>
 
-          <img
-            className="mx-auto mt-6"
-            src={coderImg.src}
-            width={coderImg.width}
-            height={coderImg.height}
-            alt=""
-          />
+          <picture>
+            <source
+              media="(max-width:576px)"
+              srcSet={coderMobileImg.src}
+              width={coderMobileImg.width}
+              height={coderMobileImg.height}
+            />
+            <source
+              media="(min-width:577px)"
+              srcSet={coderImg.src}
+              width={coderImg.width}
+              height={coderImg.height}
+            />
+            <img
+              className="w-full xs:w-auto xs:mx-auto mt-6 overflow-visible"
+              src={coderMobileImg.src}
+              width={coderMobileImg.width}
+              height={coderMobileImg.height}
+              alt=""
+            />
+          </picture>
 
-          <div className="mt-20 mx-20">
+          <div className="mt-20 mx-5 md:mx-20">
             <Cube>
               <div className="flex flex-col lg:flex-row p-4 lg:p-12 justify-between relative">
                 <div>
@@ -94,21 +111,61 @@ export default function Home(props: HomeProps) {
                 <Button
                   className="bg-purple text-white mt-16 md:mt-12 lg:my-auto"
                   shadowClassName="bg-white"
-                  style={{width: 180, minWidth: 180}}
+                  style={{ width: 180, minWidth: 180 }}
                 >
-                  <a className="font-normal" href="">Read more</a>
+                  <a className="font-normal" href="">
+                    Read more
+                  </a>
                 </Button>
               </div>
             </Cube>
           </div>
 
           <img
-            className="select-none"
+            className="select-none hidden md:block"
             src={skills.src}
             width={skills.width}
             height={skills.height}
             alt="My skills"
           />
+
+          <div className="mx-4 flex flex-col md:flex-row mb-24 md:hidden">
+            <div className="mt-20 flex flex-col mx-auto">
+              <div className="mx-auto relative mb-12">
+                <img
+                  className="absolute -top-6 -right-10 w-full px-7 z-0"
+                  src={blueMarker.src}
+                  width={blueMarker.width}
+                  height={blueMarker.height}
+                  alt=""
+                />
+                <p className="text-blue-dark text-5xl relative">
+                  My experience
+                </p>
+              </div>
+
+              <img className="max-w-sm my-auto" src={experienceMobileImg.src} alt="" />
+            </div>
+
+            <div className="mt-20 flex flex-col mx-auto">
+              <div className="mx-auto relative mb-12">
+                <img
+                  className="md:hidden absolute -bottom-20 -right-10 w-full px-12 z-0"
+                  src={markerWithArrowImg.src}
+                  width={markerWithArrowImg.width}
+                  height={markerWithArrowImg.height}
+                  alt=""
+                />
+                <p className="text-blue-dark mb-6 text-5xl">
+                  Skilled in some
+                </p>
+                <p className="text-blue-dark text-center text-5xl mb-6 md:mb-0">
+                  stuff
+                </p>
+              </div>
+              <img className="max-w-sm mt-6 md:mt-0" src={skillsMobileImg.src} alt="" />
+            </div>
+          </div>
 
           <div className="mx-auto relative">
             <img
@@ -126,7 +183,7 @@ export default function Home(props: HomeProps) {
             that I poured my heart and soul into...and maybe some coffee too.
           </p>
 
-          <div className="grid mx-10 mb-20 grid-cols-1 xl:grid-cols-3 xl:gap-x-10 gap-y-6 xl:gap-y-16">
+          <div className="grid mx-4 md:mx-10 mb-20 grid-cols-1 xl:grid-cols-3 xl:gap-x-10 gap-y-6 xl:gap-y-16">
             {props.repositories.map((repo, index) =>
               repo.details.size === "small" ? (
                 <Repo key={index} repo={repo} />
@@ -156,15 +213,15 @@ export default function Home(props: HomeProps) {
               Get in touch with me on:
             </p>
 
-            <div className="flex flex-row justify-center mt-6 ">
+            <div className="flex flex-col sm:flex-row justify-center mt-6 mx-auto md:mx-0">
               <Button className="border-yellow text-yellow bg-lighter">
                 <a className="text-blue-dark font-normal" href="">
                   LinkedIn
                 </a>
               </Button>
-
-              <p className="mx-6 my-auto text-dark text-lg">or</p>
-
+              <p className="mx-6 text-dark text-lg text-center my-4 md:my-auto">
+                or
+              </p>
               <Button className="border-orange text-orange bg-lighter">
                 <a className="text-blue-dark font-normal" href="">
                   Email
