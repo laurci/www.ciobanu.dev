@@ -126,7 +126,6 @@ export default function Home(props: HomeProps) {
             src={skills.src}
             width={skills.width}
             height={skills.height}
-            alt="My skills"
           />
 
           <div className="mx-4 flex flex-col md:flex-row mb-24 md:hidden">
@@ -143,8 +142,10 @@ export default function Home(props: HomeProps) {
                   My experience
                 </p>
               </div>
-
-              <img className="max-w-sm my-auto" src={experienceMobileImg.src} alt="" />
+              <embed
+                className="max-w-sm my-auto"
+                src={experienceMobileImg.src}
+              />
             </div>
 
             <div className="mt-20 flex flex-col mx-auto">
@@ -156,14 +157,15 @@ export default function Home(props: HomeProps) {
                   height={markerWithArrowImg.height}
                   alt=""
                 />
-                <p className="text-blue-dark mb-6 text-5xl">
-                  Skilled in some
-                </p>
+                <p className="text-blue-dark mb-6 text-5xl">Skilled in some</p>
                 <p className="text-blue-dark text-center text-5xl mb-6 md:mb-0">
                   stuff
                 </p>
               </div>
-              <img className="max-w-sm mt-6 md:mt-0" src={skillsMobileImg.src} alt="" />
+              <embed
+                className="max-w-sm mt-6 md:mt-0"
+                src={skillsMobileImg.src}
+              />
             </div>
           </div>
 
@@ -304,9 +306,8 @@ async function getShowcaseRepositories(cursor?: string): Promise<
       query: `
 query { 
   viewer { 
-    repositories(first: 100, privacy: PUBLIC${
-      cursor ? ', after: "' + cursor + '"' : ""
-    }) {
+    repositories(first: 100, privacy: PUBLIC${cursor ? ', after: "' + cursor + '"' : ""
+        }) {
       pageInfo {
         hasNextPage,
         endCursor
