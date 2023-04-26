@@ -36,7 +36,14 @@ interface HomeProps {
 export default function Home(props: HomeProps) {
   console.log(props.repositories);
   return (
-    <>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        overflowY: "scroll",
+        overflowX: "hidden",
+      }}
+    >
       <section className="flex flex-col">
         <div className="flex flex-col max-w-7xl mx-auto">
           <h1 className="text-center font-medium text-4xl md:text-5xl lg:text-7xl mt-20 text-blue-dark">
@@ -233,7 +240,7 @@ export default function Home(props: HomeProps) {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
 
