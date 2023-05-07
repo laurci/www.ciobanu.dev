@@ -25,14 +25,15 @@ export function Repo(props: Props) {
   return (
     <div
       className="bg-light-grey border-dark border-2 rounded-md p-5"
-      style={{ display: "flex", flexDirection: "column" }}
+    //   style={{ display: "flex", flexDirection: "column" }}
     >
       <p className="text-2xl uppercase font-bold text-blue-dark">
         {props.repo.name}
       </p>
       <RepoTags className="mt-3" tags={props.repo.details.tags} />
       <div
-        className="mt-2 text-dark repo-text"
+        className="mt-2 text-dark"
+        // className="mt-2 text-dark repo-text"
         dangerouslySetInnerHTML={{ __html: props.repo.details.description }}
       />
       <RepoLanguagesBar className="mt-9" languages={props.repo.languages} />
@@ -106,7 +107,8 @@ export function CubeRepo(props: Props) {
         </p>
         <RepoTags tags={props.repo.details.tags} />
         <div
-          className="repo-text mt-3 text-dark"
+          // className="repo-text mt-3 text-dark"
+          className="mt-3 text-dark"
           dangerouslySetInnerHTML={{ __html: props.repo.details.description }}
         />
         <RepoLanguagesBar className="mt-9" languages={props.repo.languages} />
