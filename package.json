@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "update-schema": "typescript-json-schema --required ./src/lib/details.ts Details > ./schemas/details.json",
-    "dev": "next dev",
+    "dev": "PORT=4040 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

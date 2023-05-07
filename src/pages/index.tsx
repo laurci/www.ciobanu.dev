@@ -34,7 +34,6 @@ interface HomeProps {
 }
 
 export default function Home(props: HomeProps) {
-  console.log(props.repositories);
   return (
     <div
       style={{
@@ -49,7 +48,10 @@ export default function Home(props: HomeProps) {
           <h1 className="text-center font-medium text-4xl md:text-5xl lg:text-7xl mt-20 text-blue-dark">
             Hello there! I'm Laur.
           </h1>
-          <p className="text-center text-base lg:text-xl mt-6 text-dark">
+          <p
+            className="text-center text-base lg:text-xl mt-6 text-dark"
+            style={{ padding: "0.75rem" }}
+          >
             I build some scalable server-side applications and here is my code
             playground.
             <br /> Check out some of my work or get in touch.
@@ -59,6 +61,9 @@ export default function Home(props: HomeProps) {
             <Button
               className="bg-turquoise text-teal border-teal"
               shadowClassName="bg-teal"
+              onClick={() => {
+                document.getElementById("projects")?.scrollIntoView();
+              }}
             >
               <a className="text-white" href="">
                 See my projects
@@ -68,6 +73,9 @@ export default function Home(props: HomeProps) {
             <Button
               className="bg-lighter border-turquoise text-turquoise"
               shadowClassName="bg-turquoise"
+              onClick={() => {
+                document.getElementById("contact")?.scrollIntoView();
+              }}
             >
               Contact me
             </Button>
@@ -120,7 +128,11 @@ export default function Home(props: HomeProps) {
                   shadowClassName="bg-white"
                   style={{ width: 180, minWidth: 180 }}
                 >
-                  <a className="font-normal" href="">
+                  <a
+                    className="font-normal"
+                    target="_blank"
+                    href="https://blog.ciobanu.dev"
+                  >
                     Read more
                   </a>
                 </Button>
@@ -184,10 +196,15 @@ export default function Home(props: HomeProps) {
               height={redMarker.height}
               alt=""
             />
-            <p className="text-blue-dark text-5xl mb-6 relative">My projects</p>
+            <p id="projects" className="text-blue-dark text-5xl mb-6 relative">
+              My projects
+            </p>
           </div>
 
-          <p className="text-center text-dark text-lg max-w-2xl mx-auto mb-16">
+          <p
+            className="text-center text-dark text-lg max-w-2xl mx-auto mb-16"
+            style={{ padding: "0.75rem" }}
+          >
             Buckle up and get ready to take a ride through the coding projects
             that I poured my heart and soul into...and maybe some coffee too.
           </p>
@@ -214,7 +231,10 @@ export default function Home(props: HomeProps) {
               />
             </div>
 
-            <p className="text-center text-4xl font-medium text-blue-dark mt-3">
+            <p
+              id="contact"
+              className="text-center text-4xl font-medium text-blue-dark mt-3"
+            >
               LETS'WRITE SOME CODE.
             </p>
 
@@ -224,7 +244,11 @@ export default function Home(props: HomeProps) {
 
             <div className="flex flex-col sm:flex-row justify-center mt-6 mx-auto md:mx-0">
               <Button className="border-yellow text-yellow bg-lighter">
-                <a className="text-blue-dark font-normal" href="">
+                <a
+                  className="text-blue-dark font-normal"
+                  target="_blank"
+                  href="https://www.linkedin.com/in/laurentiu-ciobanu/"
+                >
                   LinkedIn
                 </a>
               </Button>
@@ -232,7 +256,10 @@ export default function Home(props: HomeProps) {
                 or
               </p>
               <Button className="border-orange text-orange bg-lighter">
-                <a className="text-blue-dark font-normal" href="">
+                <a
+                  className="text-blue-dark font-normal"
+                  href="mailto:laurentiu@ciobanu.dev"
+                >
                   Email
                 </a>
               </Button>
@@ -285,11 +312,14 @@ async function getLanguagesUsage(
     }
   }
   if (totalUsage < 100) {
-    stats.push({
+    const other = {
       name: "Other",
       usage: roundToDigits(100 - totalUsage),
       color: "#FF5A44",
-    });
+    };
+    if (other.usage > 0) {
+      stats.push(other);
+    }
   }
   return stats;
 }
@@ -404,7 +434,8 @@ query {
     ];
   }
 
-  return [...repositories, ...repositories, ...repositories, ...repositories];
+  // return [...repositories, ...repositories, ...repositories, ...repositories];
+  return repositories;
 }
 
 async function extractDetails(
@@ -434,6 +465,41 @@ async function renderDetailsDescription(details: Details): Promise<Details> {
   const result = await renderer.process(details.description);
   details.description = result.toString();
   return details;
+}
+
+function orderShowcaseRepositories(info: RepositoryData[]): RepositoryData[] {
+  const repos: RepositoryData[] = [];
+
+  const bigs = info.filter((x) => x.details.size !== "small");
+  const smalls = info.filter((x) => x.details.size === "small");
+  let smallIdx = 0;
+
+  function addSmall() {
+    if (smallIdx >= smalls.length) return;
+
+    repos.push(smalls[smallIdx]);
+    smallIdx++;
+  }
+
+  for (const big of bigs) {
+    if (big.details.size === "big") {
+      repos.push(big);
+      addSmall();
+      addSmall();
+    } else if (big.details.size === "medium") {
+      repos.push(big);
+      addSmall();
+      addSmall();
+      addSmall();
+      addSmall();
+    }
+  }
+
+  while (smallIdx < smalls.length) {
+    addSmall();
+  }
+
+  return repos;
 }
 
 export async function getStaticProps() {
@@ -471,7 +537,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      repositories,
+      repositories: orderShowcaseRepositories(repositories),
     } satisfies HomeProps,
     revalidate: 60 * 60 * 1000, // 60 minutes
   };

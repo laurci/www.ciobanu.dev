@@ -8,6 +8,22 @@
   }
 
   body {
-    background: #F7F7F7;
+    background: #f7f7f7;
+  }
+
+  p a {
+    text-decoration: underline;
+  }
+
+  li {
+    list-style: disc inside;
+  }
+
+  .repo-text p {
+    margin-bottom: 0.75rem;
+  }
+
+  .repo-text {
+    height: 100%;
   }
 }
