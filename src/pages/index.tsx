@@ -209,7 +209,7 @@ export default function Home(props: HomeProps) {
             that I poured my heart and soul into...and maybe some coffee too.
           </p>
 
-          <div className="grid mx-4 md:mx-10 mb-20 grid-cols-1 xl:grid-cols-3 xl:gap-x-10 gap-y-6 xl:gap-y-16">
+          <div className="flex flex-col xl:grid mx-4 md:mx-10 mb-20 grid-cols-1 xl:grid-cols-3 xl:gap-x-10 gap-y-6 xl:gap-y-16 sm:flex">
             {props.repositories.map((repo, index) =>
               repo.details.size === "small" ? (
                 <Repo key={index} repo={repo} />
