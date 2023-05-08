@@ -76,9 +76,7 @@ export default function Home(props: HomeProps) {
                 document.getElementById("projects")?.scrollIntoView();
               }}
             >
-              <a className="text-white" href="">
-                See my projects
-              </a>
+              <span className="text-white">See my projects</span>
             </Button>
 
             <Button
