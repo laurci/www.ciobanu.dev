@@ -46,15 +46,26 @@ export default function Home(props: HomeProps) {
       <section className="flex flex-col">
         <div className="flex flex-col max-w-7xl mx-auto">
           <h1 className="text-center font-medium text-4xl md:text-5xl lg:text-7xl mt-20 text-blue-dark">
-            Hello there! I'm Laur.
+            Hello, <br /> I'm Laurentiu.
           </h1>
           <p
             className="text-center text-base lg:text-xl mt-6 text-dark"
             style={{ padding: "0.75rem" }}
           >
-            I build some scalable server-side applications and here is my code
-            playground.
-            <br /> Check out some of my work or get in touch.
+            I’m a <b>“full stack”</b> software engineer.
+            <br /> I currently work as the CTO at{" "}
+            <a target="_blank" href="https://sessions.us">
+              Sessions
+            </a>{" "}
+            and{" "}
+            <a target="_blank" href="https://webmarc.io">
+              Webmarc
+            </a>
+            .
+            <br /> You can read more about me{" "}
+            <a target="_blank" href="https://blog.ciobanu.dev/posts/whoami">
+              here.
+            </a>
           </p>
 
           <div className="flex flex-col md:flex-row ml-auto mr-auto mt-10 gap-8 lg:gap-10">
@@ -107,13 +118,16 @@ export default function Home(props: HomeProps) {
             <Cube>
               <div className="flex flex-col lg:flex-row p-4 lg:p-12 justify-between relative">
                 <div>
-                  <p className="text-xl text-white font-bold">
+                  <a
+                    className="text-xl text-white font-bold"
+                    target="_blank"
+                    href="https://blog.ciobanu.dev"
+                  >
                     CODE CHRONICLES
-                  </p>
+                  </a>
                   <p className="text-white text-sm mt-4 mr-4">
                     Looking for a fresh perspective on the tech industry? Check
-                    out my blog, where I share insights, tips, and tricks for
-                    developers of all levels.
+                    out my blog where I write about some more in-depth topics.
                   </p>
                 </div>
                 <img
@@ -202,12 +216,9 @@ export default function Home(props: HomeProps) {
           </div>
 
           <p
-            className="text-center text-dark text-lg max-w-2xl mx-auto mb-16"
+            className="text-center text-dark text-lg max-w-2xl mx-auto mb-3"
             style={{ padding: "0.75rem" }}
-          >
-            Buckle up and get ready to take a ride through the coding projects
-            that I poured my heart and soul into...and maybe some coffee too.
-          </p>
+          ></p>
 
           <div className="flex flex-col xl:grid mx-4 md:mx-10 mb-20 grid-cols-1 xl:grid-cols-3 xl:gap-x-10 gap-y-6 xl:gap-y-16 sm:flex">
             {props.repositories.map((repo, index) =>
