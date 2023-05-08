@@ -244,7 +244,7 @@ export default function Home(props: HomeProps) {
               id="contact"
               className="text-center text-4xl font-medium text-blue-dark mt-3"
             >
-              LETS'WRITE SOME CODE.
+              LET'S WRITE SOME CODE.
             </p>
 
             <p className="text-center text-lg text-dark mt-4">
