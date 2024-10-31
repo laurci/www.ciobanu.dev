@@ -53,7 +53,7 @@ export default function Home(props: HomeProps) {
             style={{ padding: "0.75rem" }}
           >
             I’m a <b>“full stack”</b> software engineer.
-            <br /> I currently work as the CTO at{" "}
+            <br /> I previously worked as the CTO at{" "}
             <a target="_blank" href="https://sessions.us">
               Sessions
             </a>{" "}
